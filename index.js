@@ -34,6 +34,14 @@ io.on("connection", (socket) => {
       socket.join(roomId);
       socket.broadcast.to(roomId).emit("leave", userId);
     });
+
+    socket.on('screen-share-started', (userId, roomId) => {
+      socket.to(roomId).emit('screen-share-started', userId);
+    });
+  
+    socket.on('screen-share-stopped', (userId, roomId) => {
+      socket.to(roomId).emit('screen-share-stopped', userId);
+    });
   });
 
 httpServer.listen(5000);
